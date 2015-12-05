@@ -23,29 +23,36 @@ int greenMax = 30; //30  //170
 int delayMin = 20;
 int delayMax = 50;
 
-void setup() {                
-  pinMode(green1, OUTPUT);  
+void setup() {
+  pinMode(green1, OUTPUT);
   pinMode(green2, OUTPUT);
   pinMode(red1,   OUTPUT);
   pinMode(red2,   OUTPUT);
   pinMode(blue1,  OUTPUT);
   pinMode(blue2,  OUTPUT);
-
+  Serial.begin(9600);
   analogWrite(blue1, 0);
   digitalWrite(blue2, LOW);
 }
 
 void loop() {
   LightValue = analogRead(LightInPin);
-  if ( LightValue > 1000 ) {  
-    green1Value = random(greenMin, greenMax);
-    red1Value   = random(redMin, redMax);   
-    green2Value = random(greenMin, greenMax);
-    red2Value   = random(redMin, redMax);
-  } 
+  if ( LightValue > 1000 ) {
+    while (red1Value - green1Value <= 10 && red2Value - green2Value <= 10 ) {
+      Serial.println(red1Value);
+      Serial.println(red2Value);
+      Serial.println(green1Value);
+      Serial.println(green2Value);
+      green1Value = random(greenMin, greenMax);
+      red1Value   = random(redMin, redMax);
+      green2Value = random(greenMin, greenMax);
+      red2Value   = random(redMin, redMax);
+    }
+
+  }
   else {
     green1Value = 0;
-    red1Value   = 0;   
+    red1Value   = 0;
     green2Value = 0;
     red2Value   = 0;
   }
@@ -57,7 +64,7 @@ void loop() {
   analogWrite(green2, green2Value);
   delay (random(delayMin, delayMax));
   analogWrite(red2, red2Value);
-  delay (random(delayMin, delayMax)); 
+  delay (random(delayMin, delayMax));
 }
 
 
