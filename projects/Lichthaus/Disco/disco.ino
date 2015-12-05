@@ -1,3 +1,4 @@
+//DISKO 1.3. V
 int green1 = 3;
 int green2 = 5;
 int red1  = 6;
